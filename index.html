@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geoengineering Technologies Chart</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .chart-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        .chart-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .chart {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            margin: 0 auto;
+            border-left: 3px solid #4a5568;
+            border-bottom: 3px solid #4a5568;
+            background: linear-gradient(45deg, #f7fafc 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f7fafc 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #f7fafc 75%), 
+                        linear-gradient(-45deg, transparent 75%, #f7fafc 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        
+        .axis-label {
+            position: absolute;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 16px;
+        }
+        
+        .y-axis-label {
+            left: -120px;
+            top: 50%;
+            transform: rotate(-90deg);
+            transform-origin: center;
+        }
+        
+        .x-axis-label {
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .quadrant-labels {
+            position: absolute;
+            font-size: 14px;
+            font-weight: 600;
+            color: #718096;
+            opacity: 0.7;
+        }
+        
+        .top-left { top: 20px; left: 20px; }
+        .top-right { top: 20px; right: 20px; }
+        .bottom-left { bottom: 20px; left: 20px; }
+        .bottom-right { bottom: 20px; right: 20px; }
+        
+        .technology {
+            position: absolute;
+            padding: 12px 16px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 140px;
+            line-height: 1.3;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .technology:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        
+        .sai {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            top: 50px;
+            left: 50px;
+        }
+        
+        .mcb {
+            background: linear-gradient(135deg, #3182ce, #2c5282);
+            top: 200px;
+            left: 250px;
+        }
+        
+        .cct {
+            background: linear-gradient(135deg, #805ad5, #6b46c1);
+            top: 200px;
+            left: 400px;
+        }
+        
+        .weathering {
+            background: linear-gradient(135deg, #38a169, #2f855a);
+            top: 450px;
+            left: 400px;
+        }
+        
+        .ocean {
+            background: linear-gradient(135deg, #0987a0, #086f83);
+            top: 480px;
+            left: 450px;
+        }
+        
+        .weather-mod {
+            background: linear-gradient(135deg, #d69e2e, #b7791f);
+            top: 450px;
+            left: 50px;
+        }
+        
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(247, 250, 252, 0.8);
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .legend-title {
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            margin-right: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .axis-ticks {
+            position: absolute;
+            color: #718096;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .y-tick-high { left: -35px; top: 100px; }
+        .y-tick-low { left: -35px; bottom: 100px; }
+        .x-tick-low { bottom: -25px; left: 100px; }
+        .x-tick-high { bottom: -25px; right: 100px; }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div class="chart-title">Geoengineering Technologies: Effectiveness vs Affordability</div>
+        
+        <div class="chart">
+            <div class="axis-label y-axis-label">Effectiveness (Cooling Potential °C)</div>
+            <div class="axis-label x-axis-label">Affordability (Cheap → Expensive)</div>
+            
+            <div class="axis-ticks y-tick-high">High (2°C)</div>
+            <div class="axis-ticks y-tick-low">Low (0.1°C)</div>
+            <div class="axis-ticks x-tick-low">Cheap</div>
+            <div class="axis-ticks x-tick-high">Expensive</div>
+            
+            <div class="quadrant-labels top-left">High Effectiveness<br>Low Cost</div>
+            <div class="quadrant-labels top-right">High Effectiveness<br>High Cost</div>
+            <div class="quadrant-labels bottom-left">Low Effectiveness<br>Low Cost</div>
+            <div class="quadrant-labels bottom-right">Low Effectiveness<br>High Cost</div>
+            
+            <div class="technology sai">Stratospheric Aerosol Injection (SAI)</div>
+            <div class="technology mcb">Marine Cloud Brightening (MCB)</div>
+            <div class="technology cct">Cirrus Cloud Thinning (CCT)</div>
+            <div class="technology weathering">Enhanced Weathering</div>
+            <div class="technology ocean">Ocean Alkalinity Enhancement</div>
+            <div class="technology weather-mod">Weather Modification</div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-title">Technology Key & Positioning Logic</div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #e53e3e, #c53030);"></div>
+                <strong>SAI:</strong> High effectiveness (1-2°C), very low cost ($1-10B/year) → Top-left quadrant
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #3182ce, #2c5282);"></div>
+                <strong>MCB:</strong> Medium effectiveness (0.5-1.5°C), medium cost → Center
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #805ad5, #6b46c1);"></div>
+                <strong>CCT:</strong> Low effectiveness (0.5°C max), high uncertainty cost → Center-right
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #38a169, #2f855a);"></div>
+                <strong>Enhanced Weathering:</strong> Very low effectiveness (0.1-0.2°C), high cost → Bottom-right
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #0987a0, #086f83);"></div>
+                <strong>Ocean Alkalinity:</strong> Very low effectiveness (<0.3°C), very high cost → Bottom-right
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #d69e2e, #b7791f);"></div>
+                <strong>Weather Modification:</strong> No global cooling, very low cost → Bottom-left
+            </div>
+        </div>
+    </div>
+</body>
+</html>
